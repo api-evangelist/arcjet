@@ -1,0 +1,83 @@
+aid: arcjet
+name: Arcjet
+review:
+  question: Does Arcjet expose a documented public REST or WebSocket API, or is it SDK-first over Connect/gRPC?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Arcjet exposes no documented streaming,
+    Server-Sent Events, or WebSocket surface. The SDK communicates with the
+    Decide service via request/response Connect/gRPC calls (unary Decide and
+    Report RPCs), not a streaming transport, so AsyncAPI is out of scope.
+findings:
+  summary: |
+    Arcjet is SDK-first. It does not publish a public REST API reference for
+    its production decision service. The supported interface is the Arcjet SDK
+    (Node.js, Next.js, Bun, Deno, SvelteKit, NestJS, Remix, Astro, React Router,
+    Fastify, Python), which embeds a WebAssembly module for local analysis and
+    calls the cloud Decide service for stateful decisions (rate limiting,
+    advanced bot detection). The Decide service is
+    proto.decide.v1alpha1.DecideService, a Go gRPC service exposed over
+    ConnectRPC at https://decide.arcjet.com, with two unary RPCs: Decide and
+    Report. ConnectRPC speaks gRPC over HTTP/2 and also accepts an HTTP/1.1 +
+    JSON POST fallback to the same RPC paths, which is what the OpenAPI document
+    in this repo models conservatively. A separate dashboard/management REST API
+    (the "Golden API", api.arcjet.com/v1, Go + Gin, OpenAPI-first) exists but is
+    an internal/dashboard backend and is not a public product API. No WebSocket
+    or SSE surface is documented.
+  transports:
+    - protocol: Connect/gRPC
+      scheme: https
+      baseURL: https://decide.arcjet.com
+      documented: true
+      note: proto.decide.v1alpha1.DecideService over ConnectRPC; gRPC over HTTP/2 with HTTP/1.1 + JSON POST fallback. Unary Decide and Report RPCs. This is the production decision service the SDK calls.
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.arcjet.com/v1
+      documented: false
+      note: Internal dashboard/management API ("Golden API", Go + Gin, OpenAPI-first) for site connections, analytics, signup, account management. Not a public product API; not supported for direct use.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming surface is documented.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented for any Arcjet product as of the review date.
+  primaryInterface: SDK
+  sdks:
+    - JavaScript / TypeScript (arcjet on npm; Node.js, Next.js, Bun, Deno, SvelteKit, NestJS, Remix, Astro, React Router, Fastify)
+    - Python
+  rpcsConfirmed:
+    - POST https://decide.arcjet.com/proto.decide.v1alpha1.DecideService/Decide
+    - POST https://decide.arcjet.com/proto.decide.v1alpha1.DecideService/Report
+sources:
+  - url: https://docs.arcjet.com/architecture
+    type: Documentation
+    note: Describes the two-part architecture (SDK with WebAssembly + Cloud Decide API), 500ms/1000ms timeouts, fail-open default, single call per request.
+  - url: https://github.com/arcjet/arcjet-js
+    type: GitHub
+    note: Open source SDK; protocol/proto/decide/v1alpha1 defines DecideService with Decide and Report RPCs, package proto.decide.v1alpha1.
+  - url: https://www.npmjs.com/package/@arcjet/protocol
+    type: SDK
+    note: "@arcjet/protocol provides the TypeScript interface into the Arcjet protocol and communicates with the Arcjet API; ConnectRPC-based."
+  - url: https://blog.arcjet.com/rethinking-our-rest-api-building-the-golden-api/
+    type: Blog
+    note: Describes the internal dashboard/management REST API (api.arcjet.com/v1, Go + Gin, OpenAPI-first), distinct from the production gRPC decision API.
+  - url: https://arcjet.com/pricing
+    type: Pricing
+    note: Per-app tier fees plus usage-based per-protection metering.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    Arcjet has no streaming/WebSocket/SSE surface, so no AsyncAPI document was
+    authored. The production interface is Connect/gRPC (unary Decide/Report) and
+    is documented in apis.yml and a conservative HTTP/JSON OpenAPI document, with
+    transport notes throughout so the Connect/gRPC nature and the SDK-first model
+    are never misrepresented as a public REST API.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,70 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Arcjet
+providerId: arcjet
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Security
+- Rate Limiting
+- Bot Detection
+- WAF
+- Developer Security
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Arcjet is itself a rate-limiting product; this artifact documents limits that
+  apply to Arcjet's OWN decision service rather than the limits customers
+  configure for their applications. Arcjet does not publish hard public
+  per-account request-rate caps on the Decide service; usage is metered and
+  billed per protected request rather than throttled, with tier-based request
+  allowances and Enterprise offering higher allowances. The practical operational
+  control is the SDK request timeout (default 500ms in production, 1000ms in
+  development), after which the SDK fails open by default (configurable to fail
+  closed). The SDK makes a single call to the Decide service per request
+  regardless of the number of rules configured, and caches decisions locally to
+  minimize calls.
+notes: >-
+  Verify per-tier request allowances on the Arcjet pricing page during
+  reconciliation. No documented numeric RPM/RPS throttle is published for the
+  Decide service; behavior is metered-billing plus timeout, not hard throttling.
+sources:
+- https://docs.arcjet.com/architecture
+- https://arcjet.com/pricing
+- https://docs.arcjet.com
+responseCodes:
+  throttled: 429
+limits:
+- name: Protected Request Allowance
+  scope: account
+  metric: requests
+  limit: see provider pricing
+  notes: Tier-based monthly request allowances; usage metered and billed per protected request rather than hard-throttled. Enterprise offers higher allowances.
+- name: SDK Request Timeout (Production)
+  scope: request
+  metric: milliseconds
+  limit: 500
+  notes: Default production timeout for a Decide service call; configurable.
+- name: SDK Request Timeout (Development)
+  scope: request
+  metric: milliseconds
+  limit: 1000
+  notes: Default development timeout, higher to allow for geographic latency to the Cloud API.
+- name: Single Call Per Request
+  scope: request
+  metric: calls
+  limit: 1
+  notes: Arcjet makes a single Decide call regardless of the number of rules configured; local caching further reduces calls.
+policies:
+- name: Fail Open by Default
+  description: On network problems or timeout the SDK defaults to failing open (allowing requests); it can be configured to fail closed.
+- name: Local Caching
+  description: The SDK caches decisions in memory so many requests are resolved locally in under 1ms without contacting the Decide service.
+- name: Tiered Allowances
+  description: Request allowances and retention scale with the pricing tier; Enterprise provides higher request allowances and dedicated capacity.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

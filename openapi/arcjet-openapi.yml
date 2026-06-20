@@ -1,0 +1,191 @@
+openapi: 3.0.1
+info:
+  title: Arcjet Decide API
+  description: >-
+    Conservative HTTP/JSON modeling of the Arcjet Decide service - the
+    Connect/gRPC (protobuf) decision API that the Arcjet SDK calls at
+    decide.arcjet.com.
+
+
+    TRANSPORT NOTE: Arcjet is SDK-first. The underlying service is
+    proto.decide.v1alpha1.DecideService, exposed over ConnectRPC, which speaks
+    gRPC over HTTP/2 and also accepts an HTTP/1.1 + JSON POST fallback to the
+    same RPC paths. This document models the two RPC methods (Decide and Report)
+    as the Connect HTTP/JSON POST endpoints. It is NOT a hand-written public REST
+    API - Arcjet does not publish a public REST reference for the decision
+    service, and the SDK (Node.js, Next.js, Bun, Deno, SvelteKit, NestJS, Remix,
+    Astro, React Router, Fastify, Python) is the supported interface. Paths and
+    schemas here are kept minimal and mapped to the real protobuf surface rather
+    than fabricated. A separate dashboard/management REST API exists at
+    api.arcjet.com but is not public; it is out of scope for this document.
+  contact:
+    name: Arcjet Support
+    url: https://docs.arcjet.com
+  version: v1alpha1
+servers:
+  - url: https://decide.arcjet.com
+    description: Arcjet Decide service (Connect/gRPC; HTTP/JSON fallback shown here)
+paths:
+  /proto.decide.v1alpha1.DecideService/Decide:
+    post:
+      operationId: decide
+      tags:
+        - Decide
+      summary: Make a security decision for a request.
+      description: >-
+        Connect RPC Decide method. The SDK sends request details and the
+        configured rules; the service returns a decision (ALLOW, DENY,
+        CHALLENGE, or ERROR) with the reason. Over native ConnectRPC this is a
+        gRPC/HTTP-2 call; the equivalent HTTP/1.1 + JSON POST is shown here.
+        Authentication is the Arcjet site key sent by the SDK.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecideRequest'
+      responses:
+        '200':
+          description: A security decision.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecideResponse'
+  /proto.decide.v1alpha1.DecideService/Report:
+    post:
+      operationId: report
+      tags:
+        - Report
+      summary: Report a decision made locally by the SDK.
+      description: >-
+        Connect RPC Report method. When the SDK reaches a decision locally in
+        its WebAssembly module, it asynchronously reports that decision to
+        Arcjet for dashboard visibility and state. Over native ConnectRPC this
+        is a gRPC/HTTP-2 call; the equivalent HTTP/1.1 + JSON POST is shown here.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+      responses:
+        '200':
+          description: Report acknowledgement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+components:
+  securitySchemes:
+    arcjetKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Arcjet site key, supplied by the SDK from the ARCJET_KEY environment variable.
+  schemas:
+    DecideRequest:
+      type: object
+      description: Maps to proto.decide.v1alpha1.DecideRequest.
+      properties:
+        sdkStack:
+          type: string
+          description: SDK platform identifier (e.g. NODEJS, NEXTJS, BUN, PYTHON).
+        sdkVersion:
+          type: string
+        characteristics:
+          type: array
+          description: Fingerprinting attributes used to key rules (e.g. ip.src, http.request.headers["x-api-key"]).
+          items:
+            type: string
+        details:
+          $ref: '#/components/schemas/RequestDetails'
+        rules:
+          type: array
+          description: Security rules to evaluate (rate limit, bot, email, sensitive info, shield).
+          items:
+            type: object
+    RequestDetails:
+      type: object
+      description: Details of the request under evaluation.
+      properties:
+        ip:
+          type: string
+        method:
+          type: string
+        protocol:
+          type: string
+        host:
+          type: string
+        path:
+          type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        cookies:
+          type: string
+        query:
+          type: string
+        email:
+          type: string
+        body:
+          type: string
+    DecideResponse:
+      type: object
+      description: Maps to proto.decide.v1alpha1.DecideResponse.
+      properties:
+        decision:
+          $ref: '#/components/schemas/Decision'
+        extra:
+          type: object
+          additionalProperties:
+            type: string
+    ReportRequest:
+      type: object
+      description: Maps to proto.decide.v1alpha1.ReportRequest; mirrors DecideRequest plus the decision already taken.
+      properties:
+        sdkStack:
+          type: string
+        sdkVersion:
+          type: string
+        details:
+          $ref: '#/components/schemas/RequestDetails'
+        decision:
+          $ref: '#/components/schemas/Decision'
+        rules:
+          type: array
+          items:
+            type: object
+    ReportResponse:
+      type: object
+      properties:
+        extra:
+          type: object
+          additionalProperties:
+            type: string
+    Decision:
+      type: object
+      properties:
+        id:
+          type: string
+        conclusion:
+          type: string
+          enum:
+            - ALLOW
+            - DENY
+            - CHALLENGE
+            - ERROR
+        reason:
+          type: object
+          description: Discriminated reason (rate limit, bot, email, sensitive info, shield, error).
+        ttl:
+          type: integer
+        ipDetails:
+          type: object
+          description: Geo and network intelligence (city, country, ASN, VPN/proxy/Tor indicators).
+        ruleResults:
+          type: array
+          items:
+            type: object
+security:
+  - arcjetKey: []

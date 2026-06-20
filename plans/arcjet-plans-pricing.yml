@@ -1,0 +1,212 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Arcjet
+providerId: arcjet
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Security
+- Rate Limiting
+- Bot Detection
+- WAF
+- Developer Security
+- Plans
+description: >-
+  Arcjet prices per application with a monthly platform fee per tier (Individual,
+  Startup, Growth, Enterprise) plus usage-based fees for each protection. Tiers
+  differ mainly by team members, log retention, and support level; all tiers get
+  access to every protection. Usage is metered per "protected request" with
+  additional per-feature charges layered on top (bot detection, advanced bot
+  signals, email validations, PII detection, prompt scanning, SAML SSO).
+notes: >-
+  Tier and usage rates as published on the Arcjet pricing page; confirm current
+  figures on the page as they change. Pricing is per app, billed monthly.
+sources:
+- https://arcjet.com/pricing
+- https://docs.arcjet.com
+plans:
+- id: arcjet-individual
+  name: Individual
+  type: flat
+  description: >-
+    $25/month per app. 1 team member, 1 hour log retention, email support.
+    Access to all protections; suited to non-commercial, community-maintained
+    open source projects.
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: app
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $25 per app per month
+    userMultiplied: false
+  elements:
+  - name: Rate Limiting
+  - name: Bot Detection
+  - name: Email Validation
+  - name: Sensitive Info Detection
+  - name: Shield WAF
+  - name: 1 Team Member
+  - name: 1 Hour Log Retention
+  - name: Email Support
+- id: arcjet-startup
+  name: Startup
+  type: flat
+  description: >-
+    $299/month per app. 2 team members, 24 hour log retention, email + Slack
+    support. Access to all protections.
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: app
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $299 per app per month
+    userMultiplied: false
+  elements:
+  - name: All Protections
+  - name: 2 Team Members
+  - name: 24 Hour Log Retention
+  - name: Email and Slack Support
+- id: arcjet-growth
+  name: Growth
+  type: flat
+  description: >-
+    $799/month per app. 10 team members, 30 day log retention, priority email +
+    Slack support. Access to all protections.
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: app
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $799 per app per month
+    userMultiplied: false
+  elements:
+  - name: All Protections
+  - name: 10 Team Members
+  - name: 30 Day Log Retention
+  - name: Priority Email and Slack Support
+- id: arcjet-usage
+  name: Usage-Based Fees
+  type: usage
+  description: >-
+    Per-usage charges layered on top of every tier. A base protected-request fee
+    is charged per request, with additional per-feature metering.
+  entries:
+  - label: Protected Request
+    name: protected_request
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: $0.50 per 1M requests
+    userMultiplied: false
+  - label: Bot Detection
+    name: bot_detection
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: $0.50 per 1M requests
+    userMultiplied: false
+  - label: Advanced Bot Signals
+    name: advanced_bot_signals
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: $2 per 1M requests
+    userMultiplied: false
+  - label: Email Validations
+    name: email_validations
+    type: usage
+    metric: validations
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: $1.50 per 1K validations
+    userMultiplied: false
+  - label: PII Detection
+    name: pii_detection
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: $1 per 1M requests
+    userMultiplied: false
+  - label: Prompt Scanning
+    name: prompt_scanning
+    type: usage
+    metric: tokens
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: $2 per 1M tokens
+    userMultiplied: false
+  - label: SAML SSO
+    name: saml_sso
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $300 per month
+    userMultiplied: false
+  elements:
+  - name: Protected Requests
+  - name: Bot Detection
+  - name: Email Validation
+  - name: PII Detection
+  - name: Prompt Scanning
+- id: arcjet-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom pricing. Dedicated capacity, regional processing controls, custom
+    retention, higher request allowances, multi-org management, SCIM
+    provisioning, audit logs, SIEM export, scheduled reporting, incident
+    escalation with SLAs, and dedicated account management. Contact
+    sales@arcjet.com.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Dedicated Capacity
+  - name: Regional Processing Controls
+  - name: SCIM Provisioning
+  - name: Audit Logs and SIEM Export
+  - name: SLAs and Dedicated Account Management
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

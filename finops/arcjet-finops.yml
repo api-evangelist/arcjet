@@ -1,0 +1,126 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Arcjet
+providerId: arcjet
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Security
+- Rate Limiting
+- Bot Detection
+- WAF
+- Developer Security
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Arcjet spend. Arcjet bills a monthly platform fee per app per
+  tier (Individual $25, Startup $299, Growth $799, Enterprise custom) plus
+  usage-based fees metered per protected request ($0.50/1M) with additional
+  charges for bot detection ($0.50/1M), advanced bot signals ($2/1M), email
+  validations ($1.50/1K), PII detection ($1/1M), prompt scanning ($2/1M tokens),
+  and SAML SSO ($300/mo). Cost scales with traffic volume and which protections
+  are enabled.
+notes: >-
+  Per-tier and per-usage rates are subject to change; verify against the Arcjet
+  pricing page during reconciliation. Pricing is per application.
+sources:
+- https://arcjet.com/pricing
+- https://docs.arcjet.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Arcjet
+serviceCategory: Security
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Arcjet
+  ServiceCategory: Security
+  ProviderName: Arcjet
+  PublisherName: Arcjet
+  InvoiceIssuerName: Arcjet
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: platform_fee
+  description: Monthly platform fee per app, set by tier (Individual, Startup, Growth).
+  unit: app
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+  - tier
+- name: protected_requests
+  description: Base protected-request fee charged per request, billed per 1M requests.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: bot_detection_requests
+  description: Bot detection evaluations, billed per 1M requests.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: advanced_bot_signals
+  description: Advanced bot signal lookups, billed per 1M requests.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: email_validations
+  description: Email validation checks, billed per 1K validations.
+  unit: validations
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: pii_detection
+  description: Sensitive-info / PII detection evaluations, billed per 1M requests.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: prompt_scanning
+  description: Prompt injection / scanning, billed per 1M tokens.
+  unit: tokens
+  aggregation: sum
+  dimensions:
+  - account
+  - app
+- name: saml_sso
+  description: SAML SSO add-on, billed per month.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track per-app protected-request volume and per-protection usage in the Arcjet dashboard; map platform fees to each app.
+- name: Allocation
+  description: One app per Arcjet application; tag apps per team/service to map platform and usage fees to cost centers.
+- name: Optimization
+  description: Enable only the protections you need per app; rely on local WebAssembly analysis and SDK caching to avoid unnecessary Decide calls; scope advanced bot signals and prompt scanning to high-value routes.
+- name: Accountability
+  description: Assign owners per app; review protected-request and per-protection burn monthly against budget, and revisit tier choice as team size and traffic grow.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

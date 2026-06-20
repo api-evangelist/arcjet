@@ -1,0 +1,103 @@
+{
+  "info": {
+    "name": "Arcjet Decide API",
+    "description": "SDK-first security-as-code platform. The production interface is the Connect/gRPC Decide service (proto.decide.v1alpha1.DecideService) at decide.arcjet.com. ConnectRPC supports gRPC over HTTP/2 and an HTTP/1.1 + JSON POST fallback to the same RPC paths, modeled here. The Arcjet SDK is the supported interface; these requests are for reference only.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://decide.arcjet.com"
+    },
+    {
+      "key": "arcjetKey",
+      "value": "ajkey_yourkey"
+    }
+  ],
+  "item": [
+    {
+      "name": "Decide",
+      "description": "Connect/gRPC DecideService RPCs (HTTP/JSON fallback).",
+      "item": [
+        {
+          "name": "Make a security decision for a request.",
+          "request": {
+            "name": "Decide",
+            "description": "Connect RPC Decide method. Sends request details and configured rules; returns a decision (ALLOW, DENY, CHALLENGE, ERROR). Native transport is gRPC over HTTP/2; HTTP/1.1 + JSON POST equivalent shown.",
+            "url": {
+              "raw": "{{baseUrl}}/proto.decide.v1alpha1.DecideService/Decide",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "proto.decide.v1alpha1.DecideService",
+                "Decide"
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{arcjetKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sdkStack\": \"NODEJS\",\n  \"sdkVersion\": \"1.0.0\",\n  \"characteristics\": [\"ip.src\"],\n  \"details\": {\n    \"ip\": \"203.0.113.10\",\n    \"method\": \"POST\",\n    \"host\": \"example.com\",\n    \"path\": \"/api/login\",\n    \"headers\": {}\n  },\n  \"rules\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Report a decision made locally by the SDK.",
+          "request": {
+            "name": "Report",
+            "description": "Connect RPC Report method. When the SDK reaches a decision locally in its WebAssembly module, it asynchronously reports that decision to Arcjet for dashboard visibility and state.",
+            "url": {
+              "raw": "{{baseUrl}}/proto.decide.v1alpha1.DecideService/Report",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "proto.decide.v1alpha1.DecideService",
+                "Report"
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{arcjetKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sdkStack\": \"NODEJS\",\n  \"sdkVersion\": \"1.0.0\",\n  \"details\": {\n    \"ip\": \"203.0.113.10\",\n    \"method\": \"POST\",\n    \"host\": \"example.com\",\n    \"path\": \"/api/login\"\n  },\n  \"decision\": {\n    \"id\": \"abc123\",\n    \"conclusion\": \"ALLOW\"\n  },\n  \"rules\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
