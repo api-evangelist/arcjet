@@ -159,7 +159,7 @@ apis:
   - url: https://github.com/arcjet/arcjet-js
     type: GitHub
   - url: https://www.npmjs.com/package/arcjet
-    type: SDK
+    type: SDKs
   description: The primary, supported interface to Arcjet. SDKs ship for Node.js,
     Next.js, Bun, Deno, SvelteKit, NestJS, Remix, Astro, React Router, Fastify, and
     Python, each wrapping the Connect/gRPC Decide protocol and the local WebAssembly
