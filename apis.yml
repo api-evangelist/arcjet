@@ -165,6 +165,12 @@ apis:
     Python, each wrapping the Connect/gRPC Decide protocol and the local WebAssembly
     analysis module.
 common:
+- type: VulnerabilityDisclosure
+  url: security/arcjet-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/arcjet-domain-security.yml
+- type: Authentication
+  url: authentication/arcjet-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/arcjet
 - type: LinkedIn
