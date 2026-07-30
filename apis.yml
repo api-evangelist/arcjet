@@ -8,7 +8,20 @@ description: Arcjet is a security-as-code platform for developers, delivering ra
   SDK is the primary interface; it runs a local WebAssembly analysis module and calls
   Arcjet's Decide service - a Connect/gRPC (protobuf) decision API at decide.arcjet.com
   - for stateful decisions like rate limiting and advanced bot detection.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/arcjet.png
 tags:
 - Security
 - Rate Limiting
@@ -19,130 +32,6 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: arcjet:arcjet-decide-api
-  name: Arcjet Decide API
-  tags:
-  - Decision
-  - Protect
-  - Connect
-  - gRPC
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.arcjet.com/architecture
-  baseURL: https://decide.arcjet.com
-  properties:
-  - url: https://docs.arcjet.com/architecture
-    type: Documentation
-  - url: https://docs.arcjet.com/reference/nodejs
-    type: APIReference
-  - url: openapi/arcjet-openapi.yml
-    type: OpenAPI
-  - url: collections/arcjet.postman_collection.json
-    type: PostmanCollection
-  - url: collections/arcjet.opencollection.json
-    type: OpenCollection
-  - url: https://github.com/arcjet/arcjet-js
-    type: GitHub
-  description: The core Connect/gRPC decision service (proto.decide.v1alpha1.DecideService,
-    Decide and Report RPCs) that the Arcjet SDK calls for stateful security decisions.
-    ConnectRPC supports gRPC over HTTP/2 and an HTTP/1.1 + JSON POST fallback to the
-    same service. This is not a typical public REST API - the SDK is the primary,
-    supported interface; the transport is documented here conservatively for reference.
-- aid: arcjet:arcjet-rate-limiting
-  name: Arcjet Rate Limiting
-  tags:
-  - Rate Limiting
-  - Throttling
-  - Quotas
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.arcjet.com/rate-limiting/concepts
-  baseURL: https://decide.arcjet.com
-  properties:
-  - url: https://docs.arcjet.com/rate-limiting/concepts
-    type: Documentation
-  - url: https://docs.arcjet.com/rate-limiting/reference
-    type: APIReference
-  - url: openapi/arcjet-openapi.yml
-    type: OpenAPI
-  description: Token-bucket, fixed-window, and sliding-window rate limiting configured
-    as code and enforced through the SDK, with cross-request state tracked by the
-    cloud Decide service. Limits are keyed on characteristics such as IP, user ID,
-    or API key.
-- aid: arcjet:arcjet-bot-detection
-  name: Arcjet Bot Detection
-  tags:
-  - Bot Detection
-  - Bots
-  - Automation
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.arcjet.com/bot-protection/concepts
-  baseURL: https://decide.arcjet.com
-  properties:
-  - url: https://docs.arcjet.com/bot-protection/concepts
-    type: Documentation
-  - url: https://docs.arcjet.com/bot-protection/reference
-    type: APIReference
-  - url: openapi/arcjet-openapi.yml
-    type: OpenAPI
-  description: Identifies and classifies automated clients, allowing or denying known
-    bots by category. Basic identification runs locally in the SDK WebAssembly module;
-    advanced bot signals are resolved via the cloud Decide service.
-- aid: arcjet:arcjet-email-validation
-  name: Arcjet Email Validation
-  tags:
-  - Email Validation
-  - Signup
-  - Anti-Fraud
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.arcjet.com/email-validation/concepts
-  baseURL: https://decide.arcjet.com
-  properties:
-  - url: https://docs.arcjet.com/email-validation/concepts
-    type: Documentation
-  - url: https://docs.arcjet.com/email-validation/reference
-    type: APIReference
-  - url: openapi/arcjet-openapi.yml
-    type: OpenAPI
-  description: Validates email addresses for syntax, deliverability, disposable and
-    no-MX-record domains, and free providers, used to block fake or fraudulent signups.
-    Invoked through the SDK against the Decide service.
-- aid: arcjet:arcjet-sensitive-info-detection
-  name: Arcjet Sensitive Information Detection
-  tags:
-  - Sensitive Info
-  - PII
-  - Data Protection
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.arcjet.com/sensitive-info/concepts
-  baseURL: https://decide.arcjet.com
-  properties:
-  - url: https://docs.arcjet.com/sensitive-info/concepts
-    type: Documentation
-  - url: https://docs.arcjet.com/sensitive-info/reference
-    type: APIReference
-  - url: openapi/arcjet-openapi.yml
-    type: OpenAPI
-  description: Detects PII and other sensitive data (emails, phone numbers, credit
-    cards, IP addresses, or custom patterns) in request bodies. Detection runs locally
-    in the SDK WebAssembly module so sensitive content need not leave the application.
-- aid: arcjet:arcjet-shield-waf
-  name: Arcjet Shield WAF
-  tags:
-  - Shield
-  - WAF
-  - Attack Protection
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.arcjet.com/shield/concepts
-  baseURL: https://decide.arcjet.com
-  properties:
-  - url: https://docs.arcjet.com/shield/concepts
-    type: Documentation
-  - url: https://docs.arcjet.com/shield/reference
-    type: APIReference
-  - url: openapi/arcjet-openapi.yml
-    type: OpenAPI
-  description: WAF-like protection against common attacks such as SQL injection, cross-site
-    scripting, and other OWASP-style threats, applied to requests flowing through
-    the SDK and evaluated by the Decide service.
 - aid: arcjet:arcjet-sdks
   name: Arcjet SDKs
   tags:
@@ -160,10 +49,90 @@ apis:
     type: GitHub
   - url: https://www.npmjs.com/package/arcjet
     type: SDKs
-  description: The primary, supported interface to Arcjet. SDKs ship for Node.js,
-    Next.js, Bun, Deno, SvelteKit, NestJS, Remix, Astro, React Router, Fastify, and
-    Python, each wrapping the Connect/gRPC Decide protocol and the local WebAssembly
-    analysis module.
+  description: >-
+    The primary, supported interface to Arcjet. SDKs ship for Node.js, Next.js, Bun, Deno, SvelteKit,
+    NestJS, Remix, Astro, React Router, Fastify, and Python, each wrapping the Connect/gRPC Decide protocol
+    and the local WebAssembly analysis module.
+- aid: arcjet:arcjet-decide-api
+  name: Arcjet Decide API
+  description: The Decide API from Arcjet — 1 operation(s) for decide.
+  humanURL: https://docs.arcjet.com/architecture
+  baseURL: https://decide.arcjet.com
+  tags:
+  - Decide
+  properties:
+  - type: OpenAPI
+    url: openapi/arcjet-decide-api-openapi.yml
+  - type: Documentation
+    url: https://docs.arcjet.com/architecture
+  - type: APIReference
+    url: https://docs.arcjet.com/reference/nodejs
+  - type: PostmanCollection
+    url: collections/arcjet.postman_collection.json
+  - type: OpenCollection
+    url: collections/arcjet.opencollection.json
+  - type: GitHub
+    url: https://github.com/arcjet/arcjet-js
+  - type: Documentation
+    url: https://docs.arcjet.com/rate-limiting/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/rate-limiting/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/bot-protection/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/bot-protection/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/email-validation/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/email-validation/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/sensitive-info/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/sensitive-info/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/shield/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/shield/reference
+- aid: arcjet:arcjet-report-api
+  name: Arcjet Report API
+  description: The Report API from Arcjet — 1 operation(s) for report.
+  humanURL: https://docs.arcjet.com/architecture
+  baseURL: https://decide.arcjet.com
+  tags:
+  - Report
+  properties:
+  - type: OpenAPI
+    url: openapi/arcjet-report-api-openapi.yml
+  - type: Documentation
+    url: https://docs.arcjet.com/architecture
+  - type: APIReference
+    url: https://docs.arcjet.com/reference/nodejs
+  - type: PostmanCollection
+    url: collections/arcjet.postman_collection.json
+  - type: OpenCollection
+    url: collections/arcjet.opencollection.json
+  - type: GitHub
+    url: https://github.com/arcjet/arcjet-js
+  - type: Documentation
+    url: https://docs.arcjet.com/rate-limiting/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/rate-limiting/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/bot-protection/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/bot-protection/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/email-validation/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/email-validation/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/sensitive-info/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/sensitive-info/reference
+  - type: Documentation
+    url: https://docs.arcjet.com/shield/concepts
+  - type: APIReference
+    url: https://docs.arcjet.com/shield/reference
 common:
 - type: AgenticAccess
   url: agentic-access/arcjet-agentic-access.yml
