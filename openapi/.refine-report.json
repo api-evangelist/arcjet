@@ -1,0 +1,16 @@
+{
+  "provider": "arcjet",
+  "sources": [
+    "arcjet-decide-api-openapi.yml",
+    "arcjet-report-api-openapi.yml"
+  ],
+  "outputs": [
+    "arcjet-decide-api-openapi.yml",
+    "arcjet-report-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
