@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arcjet Decide Report API",
+    "version": "v1alpha1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Report",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Report a decision made locally by the SDK.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://decide.arcjet.com/proto.decide.v1alpha1.DecideService/Report",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Connect RPC Report method. When the SDK reaches a decision locally in its WebAssembly module, it asynchronously reports that decision to Arcjet for dashboard visibility and state. Over native ConnectRPC this is a gRPC/HTTP-2 call; the equivalent HTTP/1.1 + JSON POST is shown here."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

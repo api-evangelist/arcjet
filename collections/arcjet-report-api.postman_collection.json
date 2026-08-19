@@ -1,0 +1,150 @@
+{
+  "item": [
+    {
+      "id": "d73f60e4-577f-4538-891f-d4ed5dd752df",
+      "name": "Report",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7bf3fa7f-65fb-4224-b07f-dbefe515ea16",
+          "name": "Report a decision made locally by the SDK.",
+          "request": {
+            "name": "Report a decision made locally by the SDK.",
+            "description": {
+              "content": "Connect RPC Report method. When the SDK reaches a decision locally in its WebAssembly module, it asynchronously reports that decision to Arcjet for dashboard visibility and state. Over native ConnectRPC this is a gRPC/HTTP-2 call; the equivalent HTTP/1.1 + JSON POST is shown here.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "proto.decide.v1alpha1.DecideService",
+                "Report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sdkStack\": \"<string>\",\n  \"sdkVersion\": \"<string>\",\n  \"details\": {\n    \"ip\": \"<string>\",\n    \"method\": \"<string>\",\n    \"protocol\": \"<string>\",\n    \"host\": \"<string>\",\n    \"path\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"cookies\": \"<string>\",\n    \"query\": \"<string>\",\n    \"email\": \"<string>\",\n    \"body\": \"<string>\"\n  },\n  \"decision\": {\n    \"id\": \"<string>\",\n    \"conclusion\": \"<string>\",\n    \"reason\": \"<object>\",\n    \"ttl\": \"<integer>\",\n    \"ipDetails\": \"<object>\",\n    \"ruleResults\": [\n      \"<object>\",\n      \"<object>\"\n    ]\n  },\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "529c186b-aa17-40cc-bc1c-5ccdc824b87d",
+              "name": "Report acknowledgement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "proto.decide.v1alpha1.DecideService",
+                    "Report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sdkStack\": \"<string>\",\n  \"sdkVersion\": \"<string>\",\n  \"details\": {\n    \"ip\": \"<string>\",\n    \"method\": \"<string>\",\n    \"protocol\": \"<string>\",\n    \"host\": \"<string>\",\n    \"path\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"cookies\": \"<string>\",\n    \"query\": \"<string>\",\n    \"email\": \"<string>\",\n    \"body\": \"<string>\"\n  },\n  \"decision\": {\n    \"id\": \"<string>\",\n    \"conclusion\": \"<string>\",\n    \"reason\": \"<object>\",\n    \"ttl\": \"<integer>\",\n    \"ipDetails\": \"<object>\",\n    \"ruleResults\": [\n      \"<object>\",\n      \"<object>\"\n    ]\n  },\n  \"rules\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"extra\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://decide.arcjet.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3557b90e-94ee-499f-9927-297f4f2eb08a",
+    "name": "Arcjet Decide Report API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Conservative HTTP/JSON modeling of the Arcjet Decide service - the Connect/gRPC (protobuf) decision API that the Arcjet SDK calls at decide.arcjet.com.\n\nTRANSPORT NOTE: Arcjet is SDK-first. The underlying service is proto.decide.v1alpha1.DecideService, exposed over ConnectRPC, which speaks gRPC over HTTP/2 and also accepts an HTTP/1.1 + JSON POST fallback to the same RPC paths. This document models the two RPC methods (Decide and Report) as the Connect HTTP/JSON POST endpoints. It is NOT a hand-written public REST API - Arcjet does not publish a public REST reference for the decision service, and the SDK (Node.js, Next.js, Bun, Deno, SvelteKit, NestJS, Remix, Astro, React Router, Fastify, Python) is the supported interface. Paths and schemas here are kept minimal and mapped to the real protobuf surface rather than fabricated. A separate dashboard/management REST API exists at api.arcjet.com but is not public; it is out of scope for this document.\n\nContact Support:\n Name: Arcjet Support",
+      "type": "text/plain"
+    }
+  }
+}

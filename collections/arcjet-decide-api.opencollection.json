@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arcjet Decide API",
+    "version": "v1alpha1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Decide",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Make a security decision for a request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://decide.arcjet.com/proto.decide.v1alpha1.DecideService/Decide",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Connect RPC Decide method. The SDK sends request details and the configured rules; the service returns a decision (ALLOW, DENY, CHALLENGE, or ERROR) with the reason. Over native ConnectRPC this is a gRPC/HTTP-2 call; the equivalent HTTP/1.1 + JSON POST is shown here. Authentication is the Arcjet site key sent by the SDK."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
