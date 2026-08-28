@@ -8,6 +8,18 @@ description: Arcjet is a security-as-code platform for developers, delivering ra
   SDK is the primary interface; it runs a local WebAssembly analysis module and calls
   Arcjet's Decide service - a Connect/gRPC (protobuf) decision API at decide.arcjet.com
   - for stateful decisions like rate limiting and advanced bot detection.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
