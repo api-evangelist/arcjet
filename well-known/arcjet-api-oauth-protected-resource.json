@@ -1,0 +1,1 @@
+{"resource":"https://api.arcjet.com/mcp","authorization_servers":["https://api.arcjet.com"],"scopes_supported":["openid","profile","email","offline_access"],"resource_name":"Arcjet MCP Server"}

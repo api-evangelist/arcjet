@@ -1,8 +1,7 @@
 {
   "provider": "arcjet",
   "sources": [
-    "arcjet-decide-api-openapi.yml",
-    "arcjet-report-api-openapi.yml"
+    "_original/arcjet-openapi.yml"
   ],
   "outputs": [
     "arcjet-decide-api-openapi.yml",
@@ -11,6 +10,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "arcjet-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "arcjet-openapi.yml: declared missing tag: Decide",
+    "arcjet-openapi.yml: declared missing tag: Report",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "arcjet-decide-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "arcjet-report-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
