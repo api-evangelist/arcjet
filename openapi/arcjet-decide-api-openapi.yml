@@ -36,61 +36,6 @@ paths:
                 $ref: '#/components/schemas/DecideResponse'
 components:
   schemas:
-    DecideResponse:
-      type: object
-      description: Maps to proto.decide.v1alpha1.DecideResponse.
-      properties:
-        decision:
-          $ref: '#/components/schemas/Decision'
-        extra:
-          type: object
-          additionalProperties:
-            type: string
-    DecideRequest:
-      type: object
-      description: Maps to proto.decide.v1alpha1.DecideRequest.
-      properties:
-        sdkStack:
-          type: string
-          description: SDK platform identifier (e.g. NODEJS, NEXTJS, BUN, PYTHON).
-        sdkVersion:
-          type: string
-        characteristics:
-          type: array
-          description: Fingerprinting attributes used to key rules (e.g. ip.src, http.request.headers["x-api-key"]).
-          items:
-            type: string
-        details:
-          $ref: '#/components/schemas/RequestDetails'
-        rules:
-          type: array
-          description: Security rules to evaluate (rate limit, bot, email, sensitive info, shield).
-          items:
-            type: object
-    Decision:
-      type: object
-      properties:
-        id:
-          type: string
-        conclusion:
-          type: string
-          enum:
-          - ALLOW
-          - DENY
-          - CHALLENGE
-          - ERROR
-        reason:
-          type: object
-          description: Discriminated reason (rate limit, bot, email, sensitive info, shield, error).
-        ttl:
-          type: integer
-        ipDetails:
-          type: object
-          description: Geo and network intelligence (city, country, ASN, VPN/proxy/Tor indicators).
-        ruleResults:
-          type: array
-          items:
-            type: object
     RequestDetails:
       type: object
       description: Details of the request under evaluation.
@@ -117,6 +62,61 @@ components:
           type: string
         body:
           type: string
+    DecideResponse:
+      type: object
+      description: Maps to proto.decide.v1alpha1.DecideResponse.
+      properties:
+        decision:
+          $ref: '#/components/schemas/Decision'
+        extra:
+          type: object
+          additionalProperties:
+            type: string
+    Decision:
+      type: object
+      properties:
+        id:
+          type: string
+        conclusion:
+          type: string
+          enum:
+          - ALLOW
+          - DENY
+          - CHALLENGE
+          - ERROR
+        reason:
+          type: object
+          description: Discriminated reason (rate limit, bot, email, sensitive info, shield, error).
+        ttl:
+          type: integer
+        ipDetails:
+          type: object
+          description: Geo and network intelligence (city, country, ASN, VPN/proxy/Tor indicators).
+        ruleResults:
+          type: array
+          items:
+            type: object
+    DecideRequest:
+      type: object
+      description: Maps to proto.decide.v1alpha1.DecideRequest.
+      properties:
+        sdkStack:
+          type: string
+          description: SDK platform identifier (e.g. NODEJS, NEXTJS, BUN, PYTHON).
+        sdkVersion:
+          type: string
+        characteristics:
+          type: array
+          description: Fingerprinting attributes used to key rules (e.g. ip.src, http.request.headers["x-api-key"]).
+          items:
+            type: string
+        details:
+          $ref: '#/components/schemas/RequestDetails'
+        rules:
+          type: array
+          description: Security rules to evaluate (rate limit, bot, email, sensitive info, shield).
+          items:
+            type: object
   securitySchemes:
     arcjetKey:
       type: apiKey

@@ -10,15 +10,19 @@ description: Arcjet is a security-as-code platform for developers, delivering ra
   - for stateful decisions like rate limiting and advanced bot detection.
 deliveryModel:
   model: saas
-  open_source: false
+  license_evidence:
+    not_product:
+    - arcjet/arcjet-js
+  open_source: unknown
   commercial: true
   callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: high
+  confidence: low
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: paid

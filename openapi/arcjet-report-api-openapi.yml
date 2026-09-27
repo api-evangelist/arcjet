@@ -36,53 +36,6 @@ paths:
                 $ref: '#/components/schemas/ReportResponse'
 components:
   schemas:
-    ReportRequest:
-      type: object
-      description: Maps to proto.decide.v1alpha1.ReportRequest; mirrors DecideRequest plus the decision already taken.
-      properties:
-        sdkStack:
-          type: string
-        sdkVersion:
-          type: string
-        details:
-          $ref: '#/components/schemas/RequestDetails'
-        decision:
-          $ref: '#/components/schemas/Decision'
-        rules:
-          type: array
-          items:
-            type: object
-    ReportResponse:
-      type: object
-      properties:
-        extra:
-          type: object
-          additionalProperties:
-            type: string
-    Decision:
-      type: object
-      properties:
-        id:
-          type: string
-        conclusion:
-          type: string
-          enum:
-          - ALLOW
-          - DENY
-          - CHALLENGE
-          - ERROR
-        reason:
-          type: object
-          description: Discriminated reason (rate limit, bot, email, sensitive info, shield, error).
-        ttl:
-          type: integer
-        ipDetails:
-          type: object
-          description: Geo and network intelligence (city, country, ASN, VPN/proxy/Tor indicators).
-        ruleResults:
-          type: array
-          items:
-            type: object
     RequestDetails:
       type: object
       description: Details of the request under evaluation.
@@ -109,6 +62,53 @@ components:
           type: string
         body:
           type: string
+    Decision:
+      type: object
+      properties:
+        id:
+          type: string
+        conclusion:
+          type: string
+          enum:
+          - ALLOW
+          - DENY
+          - CHALLENGE
+          - ERROR
+        reason:
+          type: object
+          description: Discriminated reason (rate limit, bot, email, sensitive info, shield, error).
+        ttl:
+          type: integer
+        ipDetails:
+          type: object
+          description: Geo and network intelligence (city, country, ASN, VPN/proxy/Tor indicators).
+        ruleResults:
+          type: array
+          items:
+            type: object
+    ReportRequest:
+      type: object
+      description: Maps to proto.decide.v1alpha1.ReportRequest; mirrors DecideRequest plus the decision already taken.
+      properties:
+        sdkStack:
+          type: string
+        sdkVersion:
+          type: string
+        details:
+          $ref: '#/components/schemas/RequestDetails'
+        decision:
+          $ref: '#/components/schemas/Decision'
+        rules:
+          type: array
+          items:
+            type: object
+    ReportResponse:
+      type: object
+      properties:
+        extra:
+          type: object
+          additionalProperties:
+            type: string
   securitySchemes:
     arcjetKey:
       type: apiKey
