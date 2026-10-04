@@ -151,6 +151,9 @@ apis:
   - type: APIReference
     url: https://docs.arcjet.com/shield/reference
 common:
+- type: CapabilityMap
+  url: capabilities/arcjet-capability-edges.yml
+  name: Arcjet Business Capability Map
 - type: AgenticAccess
   url: agentic-access/arcjet-agentic-access.yml
 - type: VulnerabilityDisclosure

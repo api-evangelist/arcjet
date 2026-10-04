@@ -1,0 +1,27 @@
+slug: arcjet
+provider: Arcjet
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Decide
+  spec_file: arcjet-decide-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.7
+  evidence: POST /proto.decide.v1alpha1.DecideService/Decide — "Make a security decision for a request";
+    schemas DecideRequest, Decision, RequestDetails
+  reason: The single operation evaluates an inbound request against bot detection, rate limiting and WAF
+    rules and returns an allow/deny Decision — runtime application-security detection and blocking. L2
+    threat detection & response is the best fit, though it sits between security architecture and detection,
+    hence moderate confidence.
