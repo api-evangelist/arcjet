@@ -46,7 +46,7 @@ tags:
 - WAF
 - Developer Security
 created: '2026-06-20'
-modified: '2026-06-20'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: arcjet:arcjet-sdks
@@ -151,6 +151,10 @@ apis:
   - type: APIReference
     url: https://docs.arcjet.com/shield/reference
 common:
+- url: https://arcjet.com/blog
+  type: Blog
+- url: https://arcjet.com/blog/atom
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/arcjet-capability-edges.yml
   name: Arcjet Business Capability Map
