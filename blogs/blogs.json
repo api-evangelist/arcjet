@@ -1,0 +1,21 @@
+{
+  "repo": "arcjet",
+  "feeds": [
+    {
+      "source": "https://arcjet.com/blog",
+      "feed_url": "https://arcjet.com/blog/atom",
+      "title": "",
+      "saved": 1,
+      "method": "discovered"
+    },
+    {
+      "source": "https://arcjet.com/blog/atom",
+      "feed_url": "https://arcjet.com/blog/atom",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "post_count": 1,
+  "fetched": "2026-10-10T13:15:00Z"
+}

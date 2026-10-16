@@ -19,6 +19,6 @@
     registered_name: com.arcjet/mcp
     register_id: com.arcjet/mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
