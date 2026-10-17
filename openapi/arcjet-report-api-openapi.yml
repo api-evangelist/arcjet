@@ -52,6 +52,13 @@ components:
           type: array
           items:
             type: object
+    ReportResponse:
+      type: object
+      properties:
+        extra:
+          type: object
+          additionalProperties:
+            type: string
     Decision:
       type: object
       properties:
@@ -76,13 +83,6 @@ components:
           type: array
           items:
             type: object
-    ReportResponse:
-      type: object
-      properties:
-        extra:
-          type: object
-          additionalProperties:
-            type: string
     RequestDetails:
       type: object
       description: Details of the request under evaluation.
