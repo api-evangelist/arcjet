@@ -5,7 +5,7 @@
       "source": "https://arcjet.com/blog",
       "feed_url": "https://arcjet.com/blog/atom",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "discovered"
     },
     {
@@ -16,6 +16,6 @@
       "method": "feed"
     }
   ],
-  "post_count": 1,
-  "fetched": "2026-10-10T13:15:00Z"
+  "post_count": 10,
+  "fetched": "2026-10-17T14:53:57Z"
 }
