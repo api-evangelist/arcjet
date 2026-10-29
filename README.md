@@ -1,4 +1,4 @@
-# Arcjet (arcjet)
+# Arcjet
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,172 +66,128 @@
 
 Arcjet is a security-as-code platform for developers, delivering rate limiting, bot detection, email validation, sensitive-information detection, and a Shield WAF as building blocks embedded directly in application code via SDKs. The SDK is the primary interface; it runs a local WebAssembly analysis module and calls Arcjet's Decide service - a Connect/gRPC (protobuf) decision API at decide.arcjet.com - for stateful decisions like rate limiting and advanced bot detection.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/arcjet/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/arcjet/refs/heads/main/apis.yml)
+**Areas:** Security · Rate Limiting · Bot Detection · WAF · Developer Security
 
-## Tags
+## Arcjet on APIs.io
 
-- Security
-- Rate Limiting
-- Bot Detection
-- WAF
-- Developer Security
+Everything profiled for Arcjet is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/arcjet/](https://apis.io/providers/arcjet/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (3)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Arcjet SDKs](https://apis.io/apis/arcjet/arcjet-sdks/) — The primary, supported interface to Arcjet. SDKs ship for Node.js, Next.js, Bun, Deno, SvelteKit, NestJS, Remix, Astro, React Router, Fastify, and Python,…
+- [Arcjet Decide API](https://apis.io/apis/arcjet/arcjet-decide-api/) — The Decide API from Arcjet — 1 operation(s) for decide.
+- [Arcjet Report API](https://apis.io/apis/arcjet/arcjet-report-api/) — The Report API from Arcjet — 1 operation(s) for report.
 
-## APIs
+### Published properties
 
-### Arcjet Decide API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The core Connect/gRPC decision service (proto.decide.v1alpha1.DecideService, Decide and Report RPCs) that the Arcjet SDK calls for stateful security decisions. ConnectRPC supports gRPC over HTTP/2 and an HTTP/1.1 + JSON POST fallback to the same service. This is not a typical public REST API - the SDK is the primary, supported interface; the transport is documented here conservatively for reference.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.arcjet.com/architecture](https://docs.arcjet.com/architecture)
-- **Base URL:** `https://decide.arcjet.com`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [arcjet](https://apis.io/servers/arcjet/arcjet/)
 
-- Decision
-- Protect
-- Connect
-- gRPC
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.arcjet.com/architecture)
-- [API Reference](https://docs.arcjet.com/reference/nodejs)
-- [OpenAPI](openapi/arcjet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/arcjet.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/arcjet.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/arcjet/arcjet-js)
+- [Arcjet Agentic Access](https://apis.io/agentic-access/arcjet/arcjet-agentic-access/)
 
-### Arcjet Rate Limiting
+#### Collections (3)
 
-Token-bucket, fixed-window, and sliding-window rate limiting configured as code and enforced through the SDK, with cross-request state tracked by the cloud Decide service. Limits are keyed on characteristics such as IP, user ID, or API key.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.arcjet.com/rate-limiting/concepts](https://docs.arcjet.com/rate-limiting/concepts)
-- **Base URL:** `https://decide.arcjet.com`
+- [Arcjet Decide API](https://apis.io/collections/arcjet/open-arcjet/)
+- [Arcjet Decide API](https://apis.io/collections/arcjet/open-arcjet-decide-api/)
+- [Arcjet Decide Report API](https://apis.io/collections/arcjet/open-arcjet-report-api/)
 
-#### Tags
+#### Security (3)
 
-- Rate Limiting
-- Throttling
-- Quotas
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Arcjet Authentication](https://apis.io/security/arcjet/arcjet-authentication/)
+- [Arcjet Domain Security](https://apis.io/security/arcjet/arcjet-domain-security/)
+- [Arcjet Vulnerability Disclosure](https://apis.io/security/arcjet/arcjet-vulnerability-disclosure/)
 
-- [Documentation](https://docs.arcjet.com/rate-limiting/concepts)
-- [API Reference](https://docs.arcjet.com/rate-limiting/reference)
-- [OpenAPI](openapi/arcjet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+#### Plans and pricing (1)
 
-### Arcjet Bot Detection
+Published plans, tiers and prices.
 
-Identifies and classifies automated clients, allowing or denying known bots by category. Basic identification runs locally in the SDK WebAssembly module; advanced bot signals are resolved via the cloud Decide service.
+- [Arcjet Plans Pricing](https://apis.io/plans/arcjet/arcjet-plans-pricing/)
 
-- **Human URL:** [https://docs.arcjet.com/bot-protection/concepts](https://docs.arcjet.com/bot-protection/concepts)
-- **Base URL:** `https://decide.arcjet.com`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Bot Detection
-- Bots
-- Automation
+- [Arcjet Rate Limits](https://apis.io/rate-limits/arcjet/arcjet-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.arcjet.com/bot-protection/concepts)
-- [API Reference](https://docs.arcjet.com/bot-protection/reference)
-- [OpenAPI](openapi/arcjet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+What the API costs to run, by operation.
 
-### Arcjet Email Validation
+- [Arcjet Finops](https://apis.io/finops/arcjet/arcjet-finops/)
 
-Validates email addresses for syntax, deliverability, disposable and no-MX-record domains, and free providers, used to block fake or fraudulent signups. Invoked through the SDK against the Decide service.
+## Where to find this API
 
-- **Human URL:** [https://docs.arcjet.com/email-validation/concepts](https://docs.arcjet.com/email-validation/concepts)
-- **Base URL:** `https://decide.arcjet.com`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Email Validation
-- Signup
-- Anti-Fraud
-
-#### Properties
-
-- [Documentation](https://docs.arcjet.com/email-validation/concepts)
-- [API Reference](https://docs.arcjet.com/email-validation/reference)
-- [OpenAPI](openapi/arcjet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-### Arcjet Sensitive Information Detection
-
-Detects PII and other sensitive data (emails, phone numbers, credit cards, IP addresses, or custom patterns) in request bodies. Detection runs locally in the SDK WebAssembly module so sensitive content need not leave the application.
-
-- **Human URL:** [https://docs.arcjet.com/sensitive-info/concepts](https://docs.arcjet.com/sensitive-info/concepts)
-- **Base URL:** `https://decide.arcjet.com`
-
-#### Tags
-
-- Sensitive Info
-- PII
-- Data Protection
-
-#### Properties
-
-- [Documentation](https://docs.arcjet.com/sensitive-info/concepts)
-- [API Reference](https://docs.arcjet.com/sensitive-info/reference)
-- [OpenAPI](openapi/arcjet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-### Arcjet Shield WAF
-
-WAF-like protection against common attacks such as SQL injection, cross-site scripting, and other OWASP-style threats, applied to requests flowing through the SDK and evaluated by the Decide service.
-
-- **Human URL:** [https://docs.arcjet.com/shield/concepts](https://docs.arcjet.com/shield/concepts)
-- **Base URL:** `https://decide.arcjet.com`
-
-#### Tags
-
-- Shield
-- WAF
-- Attack Protection
-
-#### Properties
-
-- [Documentation](https://docs.arcjet.com/shield/concepts)
-- [API Reference](https://docs.arcjet.com/shield/reference)
-- [OpenAPI](openapi/arcjet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-### Arcjet SDKs
-
-The primary, supported interface to Arcjet. SDKs ship for Node.js, Next.js, Bun, Deno, SvelteKit, NestJS, Remix, Astro, React Router, Fastify, and Python, each wrapping the Connect/gRPC Decide protocol and the local WebAssembly analysis module.
-
-- **Human URL:** [https://docs.arcjet.com/get-started](https://docs.arcjet.com/get-started)
-- **Base URL:** `https://decide.arcjet.com`
-
-#### Tags
-
-- SDK
-- JavaScript
-- TypeScript
-- Python
-
-#### Properties
-
-- [Documentation](https://docs.arcjet.com/get-started)
-- [GitHub](https://github.com/arcjet/arcjet-js)
-- [SDK](https://www.npmjs.com/package/arcjet)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/arcjet)
-- [LinkedIn](https://www.linkedin.com/company/arcjet)
 - [Website](https://arcjet.com)
 - [Documentation](https://docs.arcjet.com)
-- [Plans](plans/arcjet-plans-pricing.yml)
-- [Rate Limits](rate-limits/arcjet-rate-limits.yml)
-- [Fin Ops](finops/arcjet-finops.yml)
+- [Blog](https://arcjet.com/blog)
+- [GitHub](https://github.com/arcjet)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 30.6** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 47.8 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 39.3 |
+| Access clarity | 7.9 |
+
+**Agent readiness 42.7** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 17.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/arcjet/](https://apis.io/providers/arcjet/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Arcjet: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/arcjet/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
